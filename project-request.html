@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Request a business website, custom web application, database, accounting workflow, social media or AI automation project from Freetech Electronics.">
+<title>Request a Project | Freetech Electronics</title>
+<style>
+:root{--navy:#10223c;--red:#bd2537;--gold:#d6ae5b;--text:#e9eff6}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,Arial,sans-serif;background:#0d1b30;color:var(--text)}
+header{border-bottom:1px solid #39526b;background:#14273f}header .wrap{display:flex;align-items:center;justify-content:space-between;padding:20px 0;gap:16px;flex-wrap:wrap}
+.wrap{width:min(1040px,calc(100% - 36px));margin:auto}a{color:#ffe3a6}
+.brand{font-weight:850;font-size:22px;color:#fff;text-decoration:none}.brand span{color:var(--gold)}h1{font-size:clamp(32px,5vw,52px);line-height:1.13;margin:15px 0}h2{font-size:27px}
+.hero{padding:70px 0 45px;background:linear-gradient(120deg,#152c49,#253b58)}
+.tag{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:800}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:48px 0}
+.card{background:#182e4b;border:1px solid #49617b;border-radius:15px;padding:27px}
+.card ul{padding-left:20px;color:#d3dfed}.card li{margin:9px 0}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px}label{display:flex;flex-direction:column;gap:6px;font-weight:600}
+input:not([type=checkbox]),textarea,select{width:100%;border:1px solid #6c849e;border-radius:8px;padding:12px;font:inherit;background:#fff;color:#13283f}
+.wide{grid-column:1/-1}.consent{display:flex;flex-direction:row;align-items:flex-start;gap:10px;font-weight:400}
+.consent input{margin-top:6px}button{background:linear-gradient(100deg,var(--gold),#f2d18d);color:#10223c;border:0;border-radius:8px;padding:13px 24px;font-weight:800;cursor:pointer}
+button:disabled{opacity:.65;cursor:wait}.hidden-field{position:absolute;left:-10000px;height:1px;width:1px;overflow:hidden}
+#status{margin-top:12px;color:#ffe3a6}footer{background:#081426;padding:30px 0;border-top:1px solid #314663}
+@media(max-width:760px){.grid,form{grid-template-columns:1fr}.hero{padding:45px 0}.card{padding:20px}}
+</style>
+</head>
+<body><header><div class="wrap"><a class="brand" href="Freetech%20Electronics.html">FREETECH <span>ELECTRONICS</span></a><nav><a href="Freetech%20Electronics.html">← Back to the shop</a></nav></div></header>
+<section class="hero"><div class="wrap"><span class="tag">Business Services · Ghana & Worldwide</span><h1>Tell us what you want to build.</h1>
+<p>From websites to practical business software, Freetech Electronics helps entrepreneurs, businesses and individuals develop useful technology solutions. Requests are reviewed individually.</p></div></section>
+<main class="wrap grid">
+<section class="card"><h2>Services we can discuss</h2><ul><li>Professional websites and online portfolios</li><li>Custom web applications and administrative dashboards</li><li>Mobile and desktop application development</li><li>Database management and reporting</li><li>Accounting and financial process automation</li><li>AI-assisted business workflows</li><li>Social media management and content planning</li></ul>
+<p>Describe your goals and budget range in your own words. We don't claim work is agreed or priced until we review your requirements.</p>
+<p>Prefer email? <a href="mailto:danielantwi901@gmail.com">danielantwi901@gmail.com</a></p></section>
+<section class="card"><h2>Request a project discussion</h2>
+<form id="projectInquiry">
+<label>Name or company<input name="name" minlength="2" maxlength="120" autocomplete="name" required></label>
+<label>Email<input name="email" type="email" maxlength="220" autocomplete="email" required></label>
+<label>Country or region<input name="country" maxlength="90" autocomplete="country-name"></label>
+<label>Service<select name="service" required>
+<option value="websites">Website development</option><option value="webapps">Web application</option>
+<option value="apps">Mobile / desktop application</option><option value="accounting">Accounting & financial workflows</option>
+<option value="database">Database management</option><option value="social">Social media management</option>
+<option value="ai">AI & automation</option><option value="other">Other services</option></select></label>
+<label class="wide">Project requirements<textarea name="need" rows="5" maxlength="1800" minlength="15" required placeholder="Your goals, required features, intended users and timing. Do not include passwords or private records."></textarea></label>
+<div class="hidden-field" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<label class="consent wide"><input name="consent" type="checkbox" required><span>I agree Freetech Electronics may contact me about this inquiry. My details will not be used for automatic marketing.</span></label>
+<div class="wide"><button type="submit" id="sendButton">Request a discussion</button><p id="status" role="status" aria-live="polite"></p></div>
+</form></section></main>
+<footer><div class="wrap">Freetech Electronics · Kumasi, Ghana · Serving clients internationally.</div></footer>
+<script src="intake-config.js"></script>
+<script>
+(function(){
+  'use strict';
+  const form=document.getElementById('projectInquiry');
+  const state=document.getElementById('status');
+  const btn=document.getElementById('sendButton');
+  form.addEventListener('submit',async function(event){
+    event.preventDefault();
+    const v=Object.fromEntries(new FormData(form).entries());
+    const data={source_site:'freetech',name:(v.name||'').trim(),email:(v.email||'').trim(),
+      country:(v.country||'').trim(),service:v.service||'',need:(v.need||'').trim(),
+      consent:v.consent==='on',website:v.website||''};
+    if(!data.consent){state.textContent='Consent is required to submit an inquiry.';return;}
+    const base=String(window.FREETECH_INTAKE_URL||'').replace(/\/$/,'');
+    if(!base){
+      const subject=encodeURIComponent('Freetech Electronics — Project Inquiry');
+      const body=encodeURIComponent('Name: '+data.name+'\nEmail: '+data.email+
+        '\nCountry: '+data.country+'\nService: '+data.service+'\nRequirements:\n'+data.need);
+      state.textContent='Your email application will open. Press Send there; this form has not been submitted yet.';
+      location.href='mailto:danielantwi901@gmail.com?subject='+subject+'&body='+body;
+      return;
+    }
+    if(!/^https:\/\//i.test(base)){state.textContent='Secure intake unavailable. Please email us.';return;}
+    btn.disabled=true;state.textContent='Sending request…';
+    try{
+      const response=await fetch(base+'/v1/inquiries',{
+        method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+      if(!response.ok)throw Error('Request rejected');
+      form.reset();state.textContent='Your project inquiry was received for review. Thank you.';
+    }catch(error){state.textContent='Could not submit online. Email danielantwi901@gmail.com instead.';}
+    finally{btn.disabled=false;}
+  });
+})();
+</script></body></html>
